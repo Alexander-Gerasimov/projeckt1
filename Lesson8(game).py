@@ -8,21 +8,44 @@ print(number)
 
 user_number = None
 count = 0
-levels = {}
-max_count = 3
+levels = {1: 10, 2: 3, 3: 3}
+
+level = int(input('Выберете уровень сложности от 1 до 3: '))
+
+# увеличим количество пользователей
+user_count = int(input('Введите количество игроков: '))
+users = []
+for i in range(user_count):
+    i += 1
+    user_name = input(f'Введите имя пользователя {i}: ')
+    users.append(user_name)
+print('В игре участвуют:',(users))
+
+max_count = levels[level]
 # нужно сделать цикл
-while number != user_number:
+
+is_winner = False
+winner_name = None
+
+
+while not is_winner:
     count += 1
     if count > max_count:
-        print('Вы проиграли.')
+        print('Все пользователи проиграли.')
         break
     print(f'Попытка  № {count}')
-    #далее предлагаем пользователю ввести (загадать) число
-    user_number = int(input('Введите число: '))
-    #сравнение числе рандома и того что напишет пользователь
-    if number < user_number:
-        print('Ваше число больше загаданного.')
-    elif number > user_number:
-        print('Ваше число меньше загаданного.')
+    for user in users:
+        print(f'Ход пользователя {user}')
+        #далее предлагаем пользователю ввести (загадать) число
+        user_number = int(input('Введите число: '))
+        if user_number == number:
+            is_winner = True
+            winner_name = user
+            break
+        #сравнение числе рандома и того что напишет пользователь
+        elif number < user_number:
+            print('Ваше число больше загаданного.')
+        else:
+            print('Ваше число меньше загаданного.')
 else:
-    print('Победа')
+    print(f'Победитель: {winner_name}')
